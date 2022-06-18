@@ -3,10 +3,11 @@
 if (args.Length != 3)
 {
     Console.WriteLine("You need to spesify 3 arguments: worldPath, range, and coords.");
+    return;
 }
 
-string worldPath = args[0];
-if (!int.TryParse(args[0], out int range))
+string worldPath = Path.GetFullPath(args[0]);
+if (!int.TryParse(args[1], out int range))
 {
     Console.WriteLine("Could not parse range.");
     return;
@@ -24,7 +25,16 @@ foreach (var coords in args[2].Split("|"))
     coordsToSave.Add(new(x, y));
 }
 
-var remover = new ChunkRemover(worldPath, coordsToSave, range);
+ChunkRemover remover;
+try
+{
+    remover = new ChunkRemover(worldPath, coordsToSave, range);
+}
+catch (ArgumentException e)
+{
+    Console.WriteLine(e.Message);
+    return;
+}
 
 Console.WriteLine("Loading regions...");
 remover.LoadRegions();

@@ -12,6 +12,9 @@
 	<ToolCommandName>chunkrm</ToolCommandName>
 	<PackageOutputPath>./nupkg</PackageOutputPath>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageProjectUrl>https://github.com/Janssens-Robbe/RobJan.Minecraft.ChunkRemover</PackageProjectUrl>
+	<PackageVersion>1.0.0</PackageVersion>
+	<Description>CLI Tool to remove unwanted regions in Mineraft</Description>
   </PropertyGroup>
 
   <ItemGroup>
