@@ -13,11 +13,18 @@
 	<PackageOutputPath>./nupkg</PackageOutputPath>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageProjectUrl>https://github.com/Janssens-Robbe/RobJan.Minecraft.ChunkRemover</PackageProjectUrl>
-	<PackageVersion>1.0.1</PackageVersion>
-	<Description>CLI Tool to remove unwanted regions in Mineraft</Description>
+	<PackageVersion>1.1.0</PackageVersion>
+	<InformationalVersion>1.1.0</InformationalVersion>
+	<Description>CLI Tool to remove unwanted chunks from a Mineraft world</Description>
+	<AssembyTitle>Minecraft Chunk Remover</AssembyTitle>
+	<PackageTags>cli;minecraft</PackageTags>
+	<NeutralLanguage>en</NeutralLanguage>
+	<RepositoryType>git</RepositoryType>
+	<RepositoryUrl>https://github.com/Janssens-Robbe/RobJan.Minecraft.ChunkRemover</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
     <PackageReference Include="Goblinfactory.Konsole" Version="6.2.2" />
   </ItemGroup>
 
