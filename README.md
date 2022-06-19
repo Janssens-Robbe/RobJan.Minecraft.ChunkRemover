@@ -9,7 +9,7 @@ chunkrm -r <range> -c <coord> [<coord> <coord> ...]
 * `-r` or `--range` Defaults to 32. Range of chunks to not remove.
 * `-c` or `--coord` List of coordinates to not remove any chunks around within the range. Coordinates are in the format `x,y`.
 
-### Examples
+## Examples
 Remove everything but regions within 32 chunks from origin:
 ```
 chunkrm -c 0,0
