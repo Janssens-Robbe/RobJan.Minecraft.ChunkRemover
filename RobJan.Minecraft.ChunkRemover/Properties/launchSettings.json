@@ -2,7 +2,7 @@
   "profiles": {
     "RobJan.Minecraft.ChunkRemover": {
       "commandName": "Project",
-      "commandLineArgs": "\"%AppData%\\.minecraft\\saves\\Testing chunks\" 32 0,0|10000,10000|-1,-1"
+      "commandLineArgs": "\"%AppData%\\.minecraft\\saves\\earth\" 70 0,0"
     }
   }
 }

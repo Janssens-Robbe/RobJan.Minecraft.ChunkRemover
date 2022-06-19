@@ -13,9 +13,13 @@
 	<PackageOutputPath>./nupkg</PackageOutputPath>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageProjectUrl>https://github.com/Janssens-Robbe/RobJan.Minecraft.ChunkRemover</PackageProjectUrl>
-	<PackageVersion>1.0.0</PackageVersion>
+	<PackageVersion>1.0.1</PackageVersion>
 	<Description>CLI Tool to remove unwanted regions in Mineraft</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Goblinfactory.Konsole" Version="6.2.2" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RobJan.Minecraft.ChunkRemover.Logic\RobJan.Minecraft.ChunkRemover.Logic.csproj" />

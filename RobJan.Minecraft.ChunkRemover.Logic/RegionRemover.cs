@@ -1,12 +1,12 @@
 ﻿namespace RobJan.Minecraft.ChunkRemover.Logic;
 
-public class ChunkRemover
+public class RegionRemover
 {
-    private readonly List<Region> _regionsToRemove = new();
+    private readonly Queue<Region> _regionsToRemove = new();
     private readonly List<Region> _regionsToKeep = new();
     private List<Region>? _allRegions;
 
-    public ChunkRemover(string worldPath, IEnumerable<Coordinate> placesToKeep, int range)
+    public RegionRemover(string worldPath, IEnumerable<Coordinate> placesToKeep, int range)
     {
         WorldPath = worldPath;
         RegionPath = Path.Combine(worldPath, "region");
@@ -23,9 +23,9 @@ public class ChunkRemover
     public string RegionPath { get; }
     public IEnumerable<Coordinate> PlacesToKeep { get; }
     public int Range { get; }
-    public IReadOnlyList<Region> RegionsToRemove => _regionsToRemove;
-    public IReadOnlyList<Region> RegionsToKeep => _regionsToKeep;
-    public int TotalRegions => _allRegions?.Count ?? 0;
+    public int RegionsToRemoveCount => _regionsToRemove.Count;
+    public int RegionsToKeepCount => _regionsToKeep.Count;
+    public int TotalRegionsCount => _allRegions?.Count ?? 0;
 
     public void LoadRegions()
     {
@@ -46,7 +46,7 @@ public class ChunkRemover
             if (IsRegionProtected(region))
                 _regionsToKeep.Add(region);
             else
-                _regionsToRemove.Add(region);
+                _regionsToRemove.Enqueue(region);
         }
     }
 
@@ -61,15 +61,11 @@ public class ChunkRemover
         return false;
     }
 
-    public int Remove()
+    public void Remove()
     {
-        foreach (var region in _regionsToRemove)
+        while (_regionsToRemove.TryDequeue(out var region))
         {
             File.Delete(Path.Combine(RegionPath, region.FileName));
         }
-
-        var count = _regionsToRemove.Count;
-        _regionsToRemove.Clear();
-        return count;
     }
 }

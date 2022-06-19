@@ -1,4 +1,5 @@
-﻿using RobJan.Minecraft.ChunkRemover.Logic;
+﻿using Konsole;
+using RobJan.Minecraft.ChunkRemover.Logic;
 
 if (args.Length != 3)
 {
@@ -25,10 +26,10 @@ foreach (var coords in args[2].Split("|"))
     coordsToSave.Add(new(x, y));
 }
 
-ChunkRemover remover;
+RegionRemover remover;
 try
 {
-    remover = new ChunkRemover(worldPath, coordsToSave, range);
+    remover = new RegionRemover(worldPath, coordsToSave, range);
 }
 catch (ArgumentException e)
 {
@@ -37,14 +38,26 @@ catch (ArgumentException e)
 }
 
 Console.WriteLine("Loading regions...");
-remover.LoadRegions();
-Console.WriteLine($"{remover.TotalRegions} regions found. Scanning which should be removed...");
-remover.Scan();
+Thread thread = new(new ThreadStart(remover.LoadRegions));
+thread.Start();
+thread.Join();
+
+Console.WriteLine($"{remover.TotalRegionsCount} regions found. Scanning which should be removed...");
+var scanProgressBar = new ProgressBar(PbStyle.SingleLine, remover.TotalRegionsCount);
+scanProgressBar.Refresh(0, "keep: 0; remove: 0");
+thread = new(new ThreadStart(remover.Scan));
+thread.Start();
+while (thread.IsAlive)
+{
+    Thread.Sleep(50);
+    scanProgressBar.Refresh(remover.RegionsToKeepCount + remover.RegionsToRemoveCount, $"keep: {remover.RegionsToKeepCount,6}; remove: {remover.RegionsToRemoveCount,6}");
+}
+thread.Join();
 
 ConsoleKeyInfo key;
 do
 {
-    Console.Write($"Found {remover.RegionsToKeep.Count} regions to keep and {remover.RegionsToRemove.Count} regions to remove. Do you wish to proceed? (y/n) ");
+    Console.Write($"Found {remover.RegionsToKeepCount} regions to keep and {remover.RegionsToRemoveCount} regions to remove. Do you wish to proceed? (y/n) ");
     key = Console.ReadKey();
     Console.WriteLine();
 } while (key.Key != ConsoleKey.Y && key.Key != ConsoleKey.N);
@@ -55,6 +68,15 @@ if (key.Key == ConsoleKey.N)
     return;
 }
 
-Console.WriteLine($"Removing {remover.RegionsToRemove.Count} regions...");
-remover.Remove();
+var countToRemove = remover.RegionsToRemoveCount;
+var deleteProgressBar = new ProgressBar(PbStyle.SingleLine, countToRemove);
+scanProgressBar.Refresh(0, $"Removing {remover.RegionsToRemoveCount} regions");
+thread = new(new ThreadStart(remover.Remove));
+thread.Start();
+while (thread.IsAlive)
+{
+    Thread.Sleep(50);
+    deleteProgressBar.Refresh(countToRemove - remover.RegionsToRemoveCount, $"Removing {remover.RegionsToRemoveCount} regions");
+}
+thread.Join();
 Console.WriteLine("Finished!");
