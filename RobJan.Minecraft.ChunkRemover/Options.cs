@@ -16,6 +16,6 @@ internal class Options
     [Option('r', "range", Default = 32, HelpText = "Range (in chunks) from any specified coordinates where no data will be removed.")]
     public int Range { get; }
 
-    [Option('c', "coordinates", Required = true, HelpText = "List of coordinates to not remove data around. Format: x,z or x,z,r where r is range")]
+    [Option('c', "coordinates", Required = true, HelpText = "List of coordinates to not remove any chunks around within the range.Format `x,z`. Optinally the reange can be overriden for each coordinate by using the format `x,z,r` where `r` is the range.")]
     public IEnumerable<string> Coordinates { get; }
 }

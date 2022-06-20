@@ -6,7 +6,7 @@ internal class Remover
 {
     private readonly Options _options;
     private readonly RegionRemover _remover;
-    private const string _couldNotPraseCoordsMessage = "Could not parse coodinate \"{0}\". Correct format is \"x,z\" or \"x,z,r\"";
+    private const string _couldNotPraseCoordsMessage = "Could not parse coodinate `{0}`. Correct format is `x,z` or `x,z,r`";
 
     public Remover(Options options)
     {
