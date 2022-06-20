@@ -13,8 +13,8 @@
 	<PackageOutputPath>./nupkg</PackageOutputPath>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageProjectUrl>https://github.com/Janssens-Robbe/RobJan.Minecraft.ChunkRemover</PackageProjectUrl>
-	<PackageVersion>1.1.0</PackageVersion>
-	<InformationalVersion>1.1.0</InformationalVersion>
+	<PackageVersion>1.1.1</PackageVersion>
+	<InformationalVersion>1.1.1</InformationalVersion>
 	<Description>CLI Tool to remove unwanted chunks from a Mineraft world</Description>
 	<AssembyTitle>Minecraft Chunk Remover</AssembyTitle>
 	<PackageTags>cli;minecraft</PackageTags>
