@@ -4,10 +4,10 @@ namespace RobJan.Minecraft.ChunkRemover.Logic;
 
 public struct Region
 {
-    public Region(int x, int y)
+    public Region(int x, int z)
     {
         X = x;
-        Z = y;
+        Z = z;
         MinChunkX = X * 32;
         MaxChunkX = MinChunkX + 31;
         MinChunkZ = Z * 32;
@@ -48,6 +48,11 @@ public struct Region
 
         return MinChunkX - chunkCount <= chunk.X && chunk.X <= MaxChunkX + chunkCount
             && MinChunkZ - chunkCount <= chunk.Z && chunk.Z <= MaxChunkZ + chunkCount;
+    }
+
+    public bool IsIn(ChunkRange chunkRange)
+    {
+        return IsInRangeOf(chunkRange.Coordinate.Chunk, chunkRange.Range);
     }
 
     public override string ToString()

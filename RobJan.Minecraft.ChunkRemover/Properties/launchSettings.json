@@ -2,7 +2,7 @@
   "profiles": {
     "RobJan.Minecraft.ChunkRemover": {
       "commandName": "Project",
-      "commandLineArgs": " -w \"%AppData%\\.minecraft\\saves\\earth\" -r 70 -c 0,0"
+      "commandLineArgs": " -w \"%AppData%\\.minecraft\\saves\\earth\" -r 32 -c 0,0,0 3000,3000"
     }
   }
 }

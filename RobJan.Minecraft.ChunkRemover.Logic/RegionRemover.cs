@@ -6,7 +6,7 @@ public class RegionRemover
     private readonly List<Region> _regionsToKeep = new();
     private List<Region>? _allRegions;
 
-    public RegionRemover(string worldPath, IEnumerable<Coordinate> placesToKeep, int range)
+    public RegionRemover(string worldPath, IEnumerable<ChunkRange> placesToKeep, int range)
     {
         WorldPath = worldPath;
         RegionPath = Path.Combine(worldPath, "region");
@@ -21,7 +21,7 @@ public class RegionRemover
 
     public string WorldPath { get; }
     public string RegionPath { get; }
-    public IEnumerable<Coordinate> PlacesToKeep { get; }
+    public IEnumerable<ChunkRange> PlacesToKeep { get; }
     public int Range { get; }
     public int RegionsToRemoveCount => _regionsToRemove.Count;
     public int RegionsToKeepCount => _regionsToKeep.Count;
@@ -54,7 +54,7 @@ public class RegionRemover
     {
         foreach (var place in PlacesToKeep)
         {
-            if (region.IsInRangeOf(place.Chunk, Range))
+            if (region.IsIn(place))
                 return true;
         }
 
