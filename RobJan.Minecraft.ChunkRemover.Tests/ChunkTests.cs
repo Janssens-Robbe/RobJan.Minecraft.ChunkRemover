@@ -16,7 +16,7 @@ public class ChunkTests
         Assert.Multiple(() =>
         {
             Assert.That(chunk.X, Is.EqualTo(chunkX));
-            Assert.That(chunk.Y, Is.EqualTo(chunkY));
+            Assert.That(chunk.Z, Is.EqualTo(chunkY));
         });
     }
 }

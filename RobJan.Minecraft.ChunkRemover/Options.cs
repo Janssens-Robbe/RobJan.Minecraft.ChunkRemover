@@ -1,6 +1,4 @@
-﻿using CommandLine;
-
-namespace RobJan.Minecraft.ChunkRemover;
+﻿namespace RobJan.Minecraft.ChunkRemover;
 
 internal class Options
 {
@@ -17,6 +15,6 @@ internal class Options
     [Option('r', "range", Default = 32, HelpText = "Range (in chunks) from any specified coordinates where no data will be removed.")]
     public int Range { get; }
 
-    [Option('c', "coordinates", Required = true, HelpText = "List of coordinates to not remove data around. Format: x,y")]
+    [Option('c', "coordinates", Required = true, HelpText = "List of coordinates to not remove data around. Format: x,z")]
     public IEnumerable<string> Coordinates { get; }
 }

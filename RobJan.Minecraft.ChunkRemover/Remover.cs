@@ -14,7 +14,7 @@ internal class Remover
             if (!int.TryParse(split[0], out int x)
                 || !int.TryParse(split[1], out int y))
             {
-                throw new ArgumentException($"Could not parse coodinate \"{coords}\". Correct format is \"x,y\"");
+                throw new ArgumentException($"Could not parse coodinate \"{coords}\". Correct format is \"x,z\"");
             }
             CoordinatesToKeep.Add(new(x, y));
         }

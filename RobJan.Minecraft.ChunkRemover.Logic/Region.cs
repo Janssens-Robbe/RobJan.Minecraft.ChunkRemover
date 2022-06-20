@@ -7,22 +7,22 @@ public struct Region
     public Region(int x, int y)
     {
         X = x;
-        Y = y;
+        Z = y;
         MinChunkX = X * 32;
         MaxChunkX = MinChunkX + 31;
-        MinChunkY = Y * 32;
-        MaxChunkY = MinChunkY + 31;
+        MinChunkZ = Z * 32;
+        MaxChunkZ = MinChunkZ + 31;
     }
 
     public int X { get; }
-    public int Y { get; }
+    public int Z { get; }
 
     public int MinChunkX { get; }
     public int MaxChunkX { get; }
-    public int MinChunkY { get; }
-    public int MaxChunkY { get; }
+    public int MinChunkZ { get; }
+    public int MaxChunkZ { get; }
 
-    public string FileName => $"r.{X}.{Y}.mca";
+    public string FileName => $"r.{X}.{Z}.mca";
     public static Regex FileNameRegex { get; } = new(@"r(\.-?\d+){2}\.mca", RegexOptions.Compiled);
 
     public static Region FromFileName(string fileName)
@@ -34,11 +34,11 @@ public struct Region
         return new Region(int.Parse(parts[1]), int.Parse(parts[2]));
     }
 
-    public static Region FromChunk(int x, int y)
+    public static Region FromChunk(int x, int z)
     {
         return new Region(
             x < 0 ? x / 32 - 1 : x / 32,
-            y < 0 ? y / 32 - 1 : y / 32);
+            z < 0 ? z / 32 - 1 : z / 32);
     }
 
     public bool IsInRangeOf(Chunk chunk, int chunkCount)
@@ -47,11 +47,11 @@ public struct Region
             throw new ArgumentOutOfRangeException(nameof(chunkCount));
 
         return MinChunkX - chunkCount <= chunk.X && chunk.X <= MaxChunkX + chunkCount
-            && MinChunkY - chunkCount <= chunk.Y && chunk.Y <= MaxChunkY + chunkCount;
+            && MinChunkZ - chunkCount <= chunk.Z && chunk.Z <= MaxChunkZ + chunkCount;
     }
 
     public override string ToString()
     {
-        return $"{X}, {Y}";
+        return $"{X}, {Z}";
     }
 }

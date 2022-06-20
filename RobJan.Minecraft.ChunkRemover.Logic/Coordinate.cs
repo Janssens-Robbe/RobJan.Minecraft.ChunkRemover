@@ -2,15 +2,15 @@
 
 public struct Coordinate
 {
-    public Coordinate(int x, int y)
+    public Coordinate(int x, int z)
     {
         X = x;
-        Y = y;
-        Chunk = Chunk.FromCoodinates(x, y);
+        Z = z;
+        Chunk = Chunk.FromCoodinates(x, z);
     }
 
     public int X { get; }
-    public int Y { get; }
+    public int Z { get; }
 
     public Chunk Chunk { get; }
 }

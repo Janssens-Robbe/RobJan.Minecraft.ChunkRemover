@@ -10,13 +10,13 @@ public class RegionTests
     [TestCase(0, -1, 0, -1)]
     [TestCase(4, -8, 0, -1)]
     [TestCase(625, 625, 19, 19)]
-    public void FromChunk_GeneratesCorrectRegion(int x, int y, int chunkX, int chunkY)
+    public void FromChunk_GeneratesCorrectRegion(int x, int z, int chunkX, int chunkY)
     {
-        var region = Region.FromChunk(x, y);
+        var region = Region.FromChunk(x, z);
         Assert.Multiple(() =>
         {
             Assert.That(region.X, Is.EqualTo(chunkX));
-            Assert.That(region.Y, Is.EqualTo(chunkY));
+            Assert.That(region.Z, Is.EqualTo(chunkY));
         });
     }
 
@@ -26,10 +26,10 @@ public class RegionTests
     [TestCase(0, 0, 0, 0, 0, true)]
     [TestCase(1, 1, -20, -20, 51, false)]
     [TestCase(1, 1, -20, -20, 52, true)]
-    public void IsInRangeOf(int regionX, int regionY, int chunkX, int chunkY, int range, bool expected)
+    public void IsInRangeOf(int regionX, int regionZ, int chunkX, int chunkZ, int range, bool expected)
     {
-        var region = new Region(regionX, regionY);
-        var chunk = new Chunk(chunkX, chunkY);
+        var region = new Region(regionX, regionZ);
+        var chunk = new Chunk(chunkX, chunkZ);
 
         var result = region.IsInRangeOf(chunk, range);
 
