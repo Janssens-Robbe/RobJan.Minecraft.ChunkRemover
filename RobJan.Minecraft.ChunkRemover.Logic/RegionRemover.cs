@@ -8,28 +8,22 @@ public class RegionRemover
 
     public RegionRemover(string worldPath, IEnumerable<ChunkRange> placesToKeep, int range)
     {
-        WorldPath = worldPath;
-        RegionPath = Path.Combine(worldPath, "region");
-        PlacesToKeep = placesToKeep;
-        Range = range;
-
-        if (!Directory.Exists(WorldPath))
-            throw new ArgumentException($"Folder \"{WorldPath}\" does not exist.", nameof(worldPath));
-        if (!Directory.Exists(RegionPath))
-            throw new ArgumentException($"Folder \"{RegionPath}\" does not exist.", nameof(worldPath));
+        Config = new(worldPath, placesToKeep, range);
     }
 
-    public string WorldPath { get; }
-    public string RegionPath { get; }
-    public IEnumerable<ChunkRange> PlacesToKeep { get; }
-    public int Range { get; }
+    public RegionRemover(RegionRemoverConfig config)
+    {
+        Config = config;
+    }
+
+    public RegionRemoverConfig Config { get; }
     public int RegionsToRemoveCount => _regionsToRemove.Count;
     public int RegionsToKeepCount => _regionsToKeep.Count;
     public int TotalRegionsCount => _allRegions?.Count ?? 0;
 
     public void LoadRegions()
     {
-        _allRegions = Directory.GetFiles(RegionPath)
+        _allRegions = Directory.GetFiles(Config.RegionPath)
             .Select(x => Path.GetFileName(x))
             .Where(x => Region.FileNameRegex.IsMatch(x))
             .Select(x => Region.FromFileName(x))
@@ -52,9 +46,9 @@ public class RegionRemover
 
     public bool IsRegionProtected(Region region)
     {
-        foreach (var place in PlacesToKeep)
+        foreach (var range in Config.PlacesToKeep)
         {
-            if (region.IsIn(place))
+            if (region.IsIn(range))
                 return true;
         }
 
@@ -65,7 +59,7 @@ public class RegionRemover
     {
         while (_regionsToRemove.TryDequeue(out var region))
         {
-            File.Delete(Path.Combine(RegionPath, region.FileName));
+            File.Delete(Path.Combine(Config.RegionPath, region.FileName));
         }
     }
 }

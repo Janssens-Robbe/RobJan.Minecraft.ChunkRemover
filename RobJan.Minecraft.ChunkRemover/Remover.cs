@@ -4,18 +4,11 @@ namespace RobJan.Minecraft.ChunkRemover;
 
 internal class Remover
 {
-    private readonly Options _options;
     private readonly RegionRemover _remover;
-    private const string _couldNotPraseCoordsMessage = "Could not parse coodinate `{0}`. Correct format is `x,z` or `x,z,r`";
 
-    public Remover(Options options)
+    public Remover(BaseOptions options)
     {
-        _options = options;
-        ParseCoodinates();
-        _remover = new RegionRemover(
-            Path.GetFullPath(options.WorldPath),
-            PlacesToKeep,
-            options.Range);
+        _remover = new RegionRemover(options.ToRegionRemoverConfig());
     }
 
     public List<ChunkRange> PlacesToKeep { get; } = new();
@@ -82,41 +75,5 @@ internal class Remover
             Console.WriteLine("Exiting...");
             Environment.Exit(0);
         }
-    }
-
-    private void ParseCoodinates()
-    {
-        foreach (var coords in _options.Coordinates)
-        {
-            var split = coords.Split(",");
-            PlacesToKeep.Add(split.Length switch
-            {
-                2 => ParseCoordinateWithoutRange(split),
-                3 => ParseCoordinateWithRange(split),
-                _ => throw new ArgumentException(string.Format(_couldNotPraseCoordsMessage, coords))
-            });
-
-        }
-    }
-
-    private ChunkRange ParseCoordinateWithoutRange(string[] coords)
-    {
-        if (!int.TryParse(coords[0], out int x)
-            || !int.TryParse(coords[1], out int z))
-        {
-            throw new ArgumentException(string.Format(_couldNotPraseCoordsMessage, string.Join(",", coords)));
-        }
-        return new ChunkRange(x, z, _options.Range);
-    }
-
-    private ChunkRange ParseCoordinateWithRange(string[] coords)
-    {
-        if (!int.TryParse(coords[0], out int x)
-            || !int.TryParse(coords[1], out int z)
-            || !int.TryParse(coords[2], out int r))
-        {
-            throw new ArgumentException(string.Format(_couldNotPraseCoordsMessage, string.Join(",", coords)));
-        }
-        return new ChunkRange(x, z, r);
     }
 }
