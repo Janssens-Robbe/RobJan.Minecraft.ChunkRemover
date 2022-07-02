@@ -1,2 +1,3 @@
-﻿Parser.Default.ParseArguments<Options>(args)
-    .WithParsed(o => new Remover(o).Run());
+﻿Parser.Default.ParseArguments<Options, UseConfigOptions>(args)
+    .WithParsed<Options>(o => new Remover(o).Run())
+    .WithParsed<UseConfigOptions>(o => new Remover(o).Run());

@@ -4,10 +4,12 @@ namespace RobJan.Minecraft.ChunkRemover;
 
 internal class Remover
 {
+    private readonly BaseOptions _options;
     private readonly RegionRemover _remover;
 
     public Remover(BaseOptions options)
     {
+        _options = options;
         _remover = new RegionRemover(options.ToRegionRemoverConfig());
     }
 
@@ -17,7 +19,8 @@ internal class Remover
     {
         LoadRegions();
         ScanRegions();
-        PromtRemoval();
+        if (!_options.NoConfirm)
+            PromtRemoval();
         Remove();
     }
 
@@ -48,7 +51,7 @@ internal class Remover
     {
         var countToRemove = _remover.RegionsToRemoveCount;
         var deleteProgressBar = new ProgressBar(PbStyle.SingleLine, countToRemove);
-        deleteProgressBar.Refresh(0, $"Removing {_remover.RegionsToRemoveCount} regions");
+        deleteProgressBar.Refresh(0, $"Removing {_remover.RegionsToRemoveCount}/{countToRemove} regions");
         Thread thread = new(new ThreadStart(_remover.Remove));
         thread.Start();
         while (thread.IsAlive)

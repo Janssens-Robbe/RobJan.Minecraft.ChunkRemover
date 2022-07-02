@@ -6,11 +6,6 @@ public class RegionRemover
     private readonly List<Region> _regionsToKeep = new();
     private List<Region>? _allRegions;
 
-    public RegionRemover(string worldPath, IEnumerable<ChunkRange> placesToKeep, int range)
-    {
-        Config = new(worldPath, placesToKeep, range);
-    }
-
     public RegionRemover(RegionRemoverConfig config)
     {
         Config = config;

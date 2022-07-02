@@ -26,10 +26,17 @@
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
     <PackageReference Include="Goblinfactory.Konsole" Version="6.2.2" />
+    <PackageReference Include="YamlDotNet" Version="11.2.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RobJan.Minecraft.ChunkRemover.Logic\RobJan.Minecraft.ChunkRemover.Logic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestConfig.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

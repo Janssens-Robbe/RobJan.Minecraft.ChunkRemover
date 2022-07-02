@@ -1,8 +1,12 @@
 {
   "profiles": {
-    "RobJan.Minecraft.ChunkRemover": {
+    "remove": {
       "commandName": "Project",
-      "commandLineArgs": " -w \"%AppData%\\.minecraft\\saves\\earth\" -r 32 -c 0,0,0 3000,3000"
+      "commandLineArgs": "-w \"%AppData%\\.minecraft\\saves\\earth\" -r 32 -c 0,0,0 3000,3000"
+    },
+    "config": {
+      "commandName": "Project",
+      "commandLineArgs": "config TestConfig.yaml"
     }
   }
 }

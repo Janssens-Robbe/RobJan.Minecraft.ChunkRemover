@@ -1,0 +1,14 @@
+worldPath: "%AppData%\\.minecraft\\saves\\earth\\"
+regionRemovers:
+  - coordinates:
+      - x: 0
+        z: 0
+        range: 50
+      - x: 3000
+        z: 3000
+      - x: -3000
+        z: -3000
+  - range: 500
+    coordinates:
+      - x: 0
+        z: 0

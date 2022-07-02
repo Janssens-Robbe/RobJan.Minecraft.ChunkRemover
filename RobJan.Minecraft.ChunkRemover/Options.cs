@@ -5,7 +5,8 @@ internal class Options : BaseOptions
 {
     private const string _couldNotPraseCoordsMessage = "Could not parse coodinate `{0}`. Correct format is `x,z` or `x,z,r`";
 
-    public Options(string worldPath, int range, IEnumerable<string> coordinates)
+    public Options(string worldPath, int range, IEnumerable<string> coordinates, bool noConfirm)
+        : base(noConfirm)
     {
         WorldPath = worldPath;
         Range = range;
